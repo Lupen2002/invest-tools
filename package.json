@@ -4,8 +4,10 @@
   "private": true,
   "dependencies": {
     "react": "^16.2.0",
+    "react-devtools": "^3.2.1",
     "react-dom": "^16.2.0",
-    "react-scripts": "1.1.0"
+    "react-scripts": "1.1.0",
+    "react-split-pane": "^0.1.77"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -1,19 +1,40 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
+import SplitPane from 'react-split-pane';
+import AddNewElement from './AddNewElement';
+import OptionsForNewElement from './OptionsForNewElement';
 
 class App extends Component {
+  constructor(props){
+    super(props)
+    this.state={
+      name:undefined,
+      lastName:undefined,
+    }
+  }
+
+  setValue=(name,lastName)=>{
+    if(name === undefined) this.setState({...this.state, lastName})
+    if(lastName === undefined) this.setState({...this.state, name})
+  }
+
+  getValues=(name,lastName)=>{
+    this.setState({...this.state, name, lastName})
+    console.log(this.state)
+  }
+
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h1 className="App-title">Welcome to React</h1>
-        </header>
-        <p className="App-intro">
-          To get started, edit <code>src/App.js</code> and save to reload.
-        </p>
-      </div>
+      <SplitPane split="vertical" minSize={100}> //TODO костыль
+          <div><AddNewElement
+              name={this.state.name}
+              lastName={this.state.lastName}
+              getValues={this.getValues}/></div>
+          <SplitPane split="horizontal">
+              <div>INVEST-TOOLS</div>
+              <div><OptionsForNewElement setValue={this.setValue}/></div>
+          </SplitPane>
+      </SplitPane>
     );
   }
 }
