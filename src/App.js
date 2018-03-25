@@ -25,7 +25,8 @@ class App extends Component {
 
   render() {
     return (
-      <SplitPane split="vertical" minSize={100}> //TODO костыль
+      //// TODO: Костыль
+      <SplitPane split="vertical" minSize={100}>
           <div><AddNewElement
               name={this.state.name}
               lastName={this.state.lastName}
