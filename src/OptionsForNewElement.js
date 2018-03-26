@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import styles from './styles.css'
 
 class OptionForNewElement extends Component {
   constructor(props) {
@@ -21,13 +22,22 @@ class OptionForNewElement extends Component {
   }
 
   render() {
+    //TODO look like shit and mb use method
+    let elementName = document.getElementById('name');
+    let name = this.props.name;
+    if(elementName !== null && name !== undefined) {elementName.value = name}
+
+    let elementLastName = document.getElementById('lastName');
+    let lastName = this.props.lastName;
+    if(elementLastName !== null && lastName !== undefined) {elementLastName.value = lastName}
+
     return (
-      <div>
+      <div className="labels">
         <label>Name: </label>
-        <textarea onChange={e=>this.setParams(e,'Name')}>{this.state.name}</textarea>
+        <textarea id="name" onChange={e=>this.setParams(e,'Name')}></textarea>
         <p>
           <label>Last name: </label>
-          <textarea onChange={e=>this.setParams(e,'LastName')}>{this.state.lastName}</textarea>
+          <textarea id="lastName" onChange={e=>this.setParams(e,'LastName')}></textarea>
         </p>
       </div>
     )

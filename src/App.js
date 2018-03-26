@@ -3,6 +3,7 @@ import './App.css';
 import SplitPane from 'react-split-pane';
 import AddNewElement from './AddNewElement';
 import OptionsForNewElement from './OptionsForNewElement';
+import styles from './styles.css'
 
 class App extends Component {
   constructor(props){
@@ -25,15 +26,17 @@ class App extends Component {
 
   render() {
     return (
-      //// TODO: Костыль
-      <SplitPane split="vertical" minSize={100}>
-          <div><AddNewElement
-              name={this.state.name}
-              lastName={this.state.lastName}
-              getValues={this.getValues}/></div>
-          <SplitPane split="horizontal">
-              <div>INVEST-TOOLS</div>
-              <div><OptionsForNewElement setValue={this.setValue}/></div>
+      <SplitPane split="horizontal" minSize={30}>
+            <div className="text">INVEST-TOOLS</div>
+          <SplitPane split="vertical" minSize={100}>
+                    <div><AddNewElement
+                        name={this.state.name}
+                        lastName={this.state.lastName}
+                        getValues={this.getValues}/></div>
+              <div><OptionsForNewElement
+                                      name={this.state.name}
+                                      lastName={this.state.lastName}
+                                      setValue={this.setValue}/></div>
           </SplitPane>
       </SplitPane>
     );

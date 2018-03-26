@@ -1,0 +1,24 @@
+.my_select {
+  height: 200px;
+  position: relative;
+  width: 100%;
+}
+
+.add_new {
+  top: 0px;
+  width: 100%;
+}
+
+.labels {
+    left: 3%;
+    position: relative;
+}
+
+.text {
+  color: #d54d7b;
+  font-family: "Great Vibes", cursive;
+  font-weight: normal;
+  margin-bottom: 0px;
+  text-align: center;
+  text-shadow: 0 1px 1px #fff;
+}

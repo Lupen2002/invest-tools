@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import select from './select.css';
+import styles from './styles.css'
 
 class AddNewElement extends Component {
   constructor(props){
@@ -31,8 +31,8 @@ class AddNewElement extends Component {
   render() {
     return (
       <div>
-      <button onClick={this._add}>Add new</button>
-      <select id="selectBox" onChange={this.showValues} multiple>
+      <button className='add_new' onClick={this._add}>Add new</button>
+      <select className='my_select' id="selectBox" onChange={this.showValues} multiple>
       </select>
       </div>
     )
