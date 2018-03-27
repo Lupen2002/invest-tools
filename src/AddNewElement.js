@@ -9,14 +9,15 @@ class AddNewElement extends Component {
     }
   }
 
-  showValues=()=>{
-      var selectBox = document.getElementById("selectBox");
+  showValues=(e)=>{
+      var selectBox = e.target;
       var selectedValue = selectBox.options[selectBox.selectedIndex].value;
       let elem = this.state.arr[selectBox.selectedIndex];
-      this.props.getValues(elem[0],elem[1])
+      this.props.setValue(elem[0],elem[1])
   }
 
   _add=()=>{
+    console.log(this.props);
       let name = this.props.name;
       if (name !== undefined && name !== "") {
       let selectBox = document.getElementById("selectBox");

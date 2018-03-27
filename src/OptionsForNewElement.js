@@ -17,8 +17,8 @@ class OptionForNewElement extends Component {
   }
 
   setParams=(event,id)=> {
-    if(id==='Name') this.props.setValue(event.target.value,undefined)
-    else if(id==='LastName') this.props.setValue(undefined,event.target.value)
+    if(id==='Name') this.props.setValue(event.target.value,this.props.lastName)
+    else if(id==='LastName') this.props.setValue(this.props.name,event.target.value)
   }
 
   render() {

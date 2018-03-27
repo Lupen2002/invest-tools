@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import './App.css';
 import SplitPane from 'react-split-pane';
 import AddNewElement from './AddNewElement';
@@ -15,13 +15,7 @@ class App extends Component {
   }
 
   setValue=(name,lastName)=>{
-    if(name === undefined) this.setState({...this.state, lastName})
-    if(lastName === undefined) this.setState({...this.state, name})
-  }
-
-  getValues=(name,lastName)=>{
     this.setState({...this.state, name, lastName})
-    console.log(this.state)
   }
 
   render() {
@@ -29,14 +23,14 @@ class App extends Component {
       <SplitPane split="horizontal" minSize={30}>
             <div className="text">INVEST-TOOLS</div>
           <SplitPane split="vertical" minSize={100}>
-                    <div><AddNewElement
+            <div><AddNewElement
                         name={this.state.name}
                         lastName={this.state.lastName}
-                        getValues={this.getValues}/></div>
-              <div><OptionsForNewElement
-                                      name={this.state.name}
-                                      lastName={this.state.lastName}
-                                      setValue={this.setValue}/></div>
+                        setValue={this.setValue}/></div>
+            <div><OptionsForNewElement
+                        name={this.state.name}
+                        lastName={this.state.lastName}
+                        setValue={this.setValue}/></div>
           </SplitPane>
       </SplitPane>
     );
