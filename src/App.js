@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './App.css';
 import SplitPane from 'react-split-pane';
 import AddNewElement from './AddNewElement';
 import OptionsForNewElement from './OptionsForNewElement';
