@@ -11,11 +11,12 @@ class App extends Component {
     this.state={
       name:undefined,
       lastName:undefined,
+      id:undefined,
     }
   }
 
-  setValue=(name,lastName)=>{
-    this.setState({...this.state, name, lastName})
+  setValue=(name,lastName,id)=>{
+    this.setState({...this.state, name, lastName, id})
   }
 
   render() {
@@ -26,10 +27,12 @@ class App extends Component {
             <div><AddNewElement
                         name={this.state.name}
                         lastName={this.state.lastName}
+                        id={this.state.id}
                         setValue={this.setValue}/></div>
             <div><OptionsForNewElement
                         name={this.state.name}
                         lastName={this.state.lastName}
+                        id={this.state.id}
                         setValue={this.setValue}/></div>
           </SplitPane>
       </SplitPane>

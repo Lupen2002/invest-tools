@@ -13,27 +13,28 @@ class AddNewElement extends Component {
       var selectBox = e.target;
       var selectedValue = selectBox.options[selectBox.selectedIndex].value;
       let elem = this.state.arr[selectBox.selectedIndex];
-      this.props.setValue(elem[0],elem[1])
+      this.props.setValue(elem[0],elem[1],selectBox.selectedIndex)
   }
 
   _add=()=>{
-    console.log(this.props);
       let name = this.props.name;
       if (name !== undefined && name !== "") {
-      let selectBox = document.getElementById("selectBox");
       let lastName = this.props.lastName;
-      this.state.arr.push([name,lastName])
-      var option = document.createElement("option");
-      option.text = name;
-      selectBox.add(option);
+      let arr = this.state.arr
+      arr[arr.length] = [name,lastName]
+      this.setState({...this.state,arr})
     }
   }
 
   render() {
+    if(this.props.id !== undefined && this.props.id !== null){
+    this.state.arr[this.props.id] = [this.props.name,this.props.lastName]
+    }
     return (
       <div>
-      <button className='add_new' onClick={this._add}>Add new</button>
+      <button className='add_new' onClick={this._add.bind(this)}>Add new</button>
       <select className='my_select' id="selectBox" onChange={this.showValues} multiple>
+      {this.state.arr.map(el => <option>{el[0]}</option>)}
       </select>
       </div>
     )

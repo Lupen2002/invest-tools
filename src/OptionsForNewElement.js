@@ -8,12 +8,11 @@ class OptionForNewElement extends Component {
       name:undefined,
       lastName:undefined,
     };
+    this.id = undefined;
   }
 
   setState=(name,lastName)=>{
-    console.log(this.state)
     this.setState({...this.state, name, lastName})
-    console.log(this.state)
   }
 
   setParams=(event,id)=> {
@@ -21,8 +20,15 @@ class OptionForNewElement extends Component {
     else if(id==='LastName') this.props.setValue(this.props.name,event.target.value)
   }
 
+  saveChanges=()=>{
+    let elementName = document.getElementById('name');
+    let elementLastName = document.getElementById('lastName');
+    this.props.setValue(elementName.value, elementLastName.value, this.id)
+  }
+
   render() {
     //TODO look like shit and mb use method
+    if(this.props.id !== undefined) this.id = this.props.id;
     let elementName = document.getElementById('name');
     let name = this.props.name;
     if(elementName !== null && name !== undefined) {elementName.value = name}
@@ -39,6 +45,7 @@ class OptionForNewElement extends Component {
           <label>Last name: </label>
           <textarea id="lastName" onChange={e=>this.setParams(e,'LastName')}></textarea>
         </p>
+        <button className="save_changes" onClick={this.saveChanges}>Save changes</button>
       </div>
     )
   }
