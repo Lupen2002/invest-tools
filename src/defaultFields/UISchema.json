@@ -1,0 +1,16 @@
+{
+  "firstName": {
+    "ui:autofocus": true,
+    "ui:emptyValue": ""
+  },
+  "year": {
+    "ui:widget": "updown",
+    "ui:title": "Report year"
+  },
+  "info": {
+    "ui:widget": "textarea"
+  },
+  "date": {
+    "ui:widget": "alt-datetime"
+  }
+}

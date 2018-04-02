@@ -2,43 +2,39 @@ import React, {Component} from 'react';
 import styles from './styles.css'
 
 class AddNewElement extends Component {
-  constructor(props){
-    super(props)
-    this.state={
-      arr:[],
+    constructor(props) {
+        super(props);
+        this.state = {
+            formData: [],
+        }
     }
-  }
 
-  showValues=(e)=>{
-      var selectBox = e.target;
-      var selectedValue = selectBox.options[selectBox.selectedIndex].value;
-      let elem = this.state.arr[selectBox.selectedIndex];
-      this.props.setValue(elem[0],elem[1],selectBox.selectedIndex)
-  }
+    showValues = (e) => {
+        const selectBox = e.target;
+        let elem = this.state.formData[selectBox.selectedIndex];
+        this.props.setFromData(elem, selectBox.selectedIndex)
+    };
 
-  _add=()=>{
-      let name = this.props.name;
-      if (name !== undefined && name !== "") {
-      let lastName = this.props.lastName;
-      let arr = this.state.arr
-      arr[arr.length] = [name,lastName]
-      this.setState({...this.state,arr})
+    // TODO I don't know how do better
+    static _isEmpty(obj) {
+        return (Object.getOwnPropertyNames(obj).length > 1);
     }
-  }
 
-  render() {
-    if(this.props.id !== undefined && this.props.id !== null){
-    this.state.arr[this.props.id] = [this.props.name,this.props.lastName]
+    render() {
+        let formData = this.props.formData;
+        if (AddNewElement._isEmpty(formData)) {
+            let id = this.props.id;
+            if (id !== undefined) this.state.formData[id] = formData;
+            else this.state.formData[this.state.formData.length] = formData;
+        }
+        return (
+            <div>
+                <select className='my_select' id="selectBox" onChange={this.showValues} multiple>
+                    {this.state.formData.map(el => <option>{el["CompanyName"]}</option>)}
+                </select>
+            </div>
+        )
     }
-    return (
-      <div>
-      <button className='add_new' onClick={this._add.bind(this)}>Add new</button>
-      <select className='my_select' id="selectBox" onChange={this.showValues} multiple>
-      {this.state.arr.map(el => <option>{el[0]}</option>)}
-      </select>
-      </div>
-    )
-  }
 }
 
 export default AddNewElement;

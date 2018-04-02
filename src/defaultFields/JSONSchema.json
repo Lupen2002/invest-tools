@@ -1,0 +1,49 @@
+{
+  "title": "A registration form",
+  "type": "object",
+  "required": [
+    "CompanyName",
+    "Margin",
+    "Capitalization"
+  ],
+  "properties": {
+    "CompanyName": {
+      "type": "string",
+      "title": "Company Name"
+    },
+    "Margin": {
+      "type": "integer",
+      "title": "Margin"
+    },
+    "Capitalization": {
+      "type": "integer",
+      "title": "Capitalization"
+    },
+    "year": {
+      "type": "integer",
+      "title": "Year"
+    },
+    "quarter": {
+      "type": "integer",
+      "title": "Quarter",
+      "enum": [
+        1,
+        2,
+        3,
+        4
+      ]
+    },
+    "info": {
+      "type": "string",
+      "title": "Info"
+    },
+    "standard": {
+      "type": "string",
+      "title": "Standard",
+      "enum": [
+        "МСФО",
+        "рсбу"
+      ]
+    }
+  }
+}

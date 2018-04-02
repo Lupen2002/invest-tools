@@ -1,8 +1,8 @@
 .my_select {
-  height: 200px;
-  position: relative;
+  height: 100%;
   width: 100%;
-}
+  position: absolute;
+  }
 
 .add_new {
   top: 0px;
@@ -21,10 +21,21 @@
   margin-bottom: 0px;
   text-align: center;
   text-shadow: 0 1px 1px #fff;
+  font-size: 150%;
 }
 
 .save_changes {
     left: 20%;
     position: relative;
     top: 80px;
+}
+
+.btn.btn-info{
+      /* color: red; */
+      /* display: none; */
+}
+
+.myForm{
+  position: absolute;
+  left: 3%;
 }
