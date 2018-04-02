@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 import styles from '../styles.css'
-
+import Const, {jsonSchema, uiSchema, ifrsSchema, rasSchema} from './Const'
 import Form from "react-jsonschema-form";
+import SplitPane from 'react-split-pane';
 
 class TestElements extends Component {
     constructor(props) {
@@ -9,103 +10,59 @@ class TestElements extends Component {
         this.state = {
             id: undefined,
             formData: undefined,
+            standardForm: <span/>,
         };
-        this.JSONschema = {
-            "title": "A registration form",
-            "type": "object",
-            "required": [
-                "CompanyName",
-                "Margin",
-                "Capitalization"
-            ],
-            "properties": {
-                "CompanyName": {
-                    "type": "string",
-                    "title": "Company Name"
-                },
-                "Margin": {
-                    "type": "integer",
-                    "title": "Margin"
-                },
-                "Capitalization": {
-                    "type": "integer",
-                    "title": "Capitalization"
-                },
-                "year": {
-                    "type": "integer",
-                    "title": "Year"
-                },
-                "quarter": {
-                    "type": "integer",
-                    "title": "Quarter",
-                    "enum": [
-                        1,
-                        2,
-                        3,
-                        4
-                    ]
-                },
-                "info": {
-                    "type": "string",
-                    "title": "Info"
-                },
-                "standard": {
-                    "type": "string",
-                    "title": "Standard",
-                    "enum": [
-                        "IFRS",
-                        "RAS"
-                    ]
-                }
-            }
-        };
-        this.uiSchema = {
-            "Capitalization": {
-                "ui:autofocus": true,
-                "ui:emptyValue": ""
-            },
-            "year": {
-                "ui:widget": "updown",
-                "ui:title": "Report year"
-            },
-            "info": {
-                "ui:widget": "textarea"
-            },
-            "date": {
-                "ui:widget": "alt-datetime"
-            }
-        }
     }
 
-    id = undefined;
     flag = false;
 
     // TODO I can't throw event.fromData to App.js
     onSubmit(event) {
-        this.id = this.state.id;
+        let id = this.state.id;
         this.state.id = undefined;
         this.state.formData = undefined;
-        this.flag = false
-        this.props.setFromData(event, this.id);
+        this.flag = false;
+        this.props.setFromData(event, id);
     }
 
-    static _isEmpty(obj) {
-        return (Object.getOwnPropertyNames(obj).length > 1);
+    _setSchemaInForm(schema) {
+        return (<Form className="standardForm"
+                      schema={schema}
+                      onError={console.log("errors")}/>)
+    }
+
+    _check(event) {
+        let formData = event.formData;
+        let standard = event.formData["standard"];
+        if (standard === "IFRS") this.setState({
+            ...this.state,
+            standardForm: this._setSchemaInForm(ifrsSchema),
+            formData
+        });
+        else if (standard === "RAS") this.setState({
+            ...this.state,
+            standardForm: this._setSchemaInForm(rasSchema), formData
+        });
+        else this.setState({...this.state, standardForm: <span/>, formData});
     }
 
     render() {
         if (this.state.formData !== this.props.formData && this.state.id !== this.props.id && this.flag) {
             this.state.id = this.props.id;
             this.state.formData = this.props.formData;
-        } else this.flag = true
+        } else this.flag = true;
         return (
-            <Form className="myForm"
-                  formData={this.state.formData}
-                  schema={this.JSONschema}
-                  uiSchema={this.uiSchema}
-                  onChange={e => console.log(e)}
-                  onSubmit={this.onSubmit.bind(this)}
-                  onError={console.log("errors")}/>
+            <SplitPane split="vertical" minSize={350}>
+                <div><Form className="defaultForm"
+                           formData={this.state.formData}
+                           schema={jsonSchema}
+                           uiSchema={uiSchema}
+                           onChange={this._check.bind(this)}
+                           onSubmit={this.onSubmit.bind(this)}
+                           onError={console.log("errors")}/></div>
+                <div>{this.state.standardForm}</div>
+            </SplitPane>
+
         )
     }
 }

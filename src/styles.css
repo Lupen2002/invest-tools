@@ -35,7 +35,11 @@
       /* display: none; */
 }
 
-.myForm{
+.defaultForm{
   position: absolute;
   left: 3%;
+}
+
+.standardForm{
+  position: absolute;
 }
