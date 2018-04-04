@@ -1,3 +1,4 @@
+export let standards = ["IFRS", "RAS"];
 /**DEFAULT SCHEMAS*/
 export let jsonSchema = {
     "title": "A registration form",
@@ -41,10 +42,7 @@ export let jsonSchema = {
         "standard": {
             "type": "string",
             "title": "Standard",
-            "enum": [
-                "IFRS",
-                "RAS"
-            ]
+            "enum": standards
         }
     }
 };
@@ -105,6 +103,19 @@ export let rasSchema = {
         "RASParam3": {
             "type": "string",
             "title": "RASParam3"
+        },
+    }
+};
+/**RAS SCHEMAS*/
+export let newSchema = {
+    "type": "object",
+    "required": [
+        "newValue"
+    ],
+    "properties": {
+        "newValue": {
+            "type": "string",
+            "title": "New value"
         },
     }
 };

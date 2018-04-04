@@ -1,12 +1,12 @@
 .my_select {
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  }
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
 
 .add_new {
-  top: 0px;
-  width: 100%;
+    top: 0px;
+    width: 100%;
 }
 
 .labels {
@@ -15,13 +15,13 @@
 }
 
 .text {
-  color: #d54d7b;
-  font-family: "Great Vibes", cursive;
-  font-weight: normal;
-  margin-bottom: 0px;
-  text-align: center;
-  text-shadow: 0 1px 1px #fff;
-  font-size: 150%;
+    color: #d54d7b;
+    font-family: "Great Vibes", cursive;
+    font-weight: normal;
+    margin-bottom: 0px;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    font-size: 150%;
 }
 
 .save_changes {
@@ -30,16 +30,22 @@
     top: 80px;
 }
 
-.btn.btn-info{
-      /* color: red; */
-      /* display: none; */
+.btn.btn-info {
+    /* color: red; */
+    /* display: none; */
 }
 
-.defaultForm{
-  position: absolute;
-  left: 3%;
+.defaultForm {
+    position: absolute;
+    left: 3%;
 }
 
-.standardForm{
-  position: absolute;
+.standardForm {
+    position: absolute;
+}
+
+.btn_settingStandards {
+    position: fixed;
+    right: 0px;
+    top: 0px;
 }

@@ -3,6 +3,8 @@ import SplitPane from 'react-split-pane';
 import AddNewElement from './AddNewElement';
 import TestElements from './defaultFields/TestElements';
 import styles from './styles.css'
+import SettingsForStandards from "./SettingsForStandards";
+import {standards} from './defaultFields/Const'
 
 class App extends Component {
     constructor(props) {
@@ -12,6 +14,8 @@ class App extends Component {
             lastName: undefined,
             id: undefined,
             formData: {},
+            settingsForStandards: false,
+            standards: standards,
         };
     }
 
@@ -29,10 +33,19 @@ class App extends Component {
         this.setState({...this.state, name, lastName, id})
     };
 
+    getTrue() {
+        this.setState({...this.state, settingsForStandards: true})
+    }
+
     render() {
-        return (
+        let pane = <span/>;
+        if (this.state.settingsForStandards) pane = <SettingsForStandards standards={this.state.standards}/>;
+        else pane = (
             <SplitPane split="horizontal" minSize={40}>
-                <div className="text">INVEST-TOOLS</div>
+                <div className="text">INVEST-TOOLS
+                    <button className="btn_settingStandards"
+                            onClick={this.getTrue.bind(this)}>Settings for standards</button>
+                </div>
                 <SplitPane split="vertical" minSize={250}>
                     <div><AddNewElement
                         id={this.state.id}
@@ -46,6 +59,8 @@ class App extends Component {
                 </SplitPane>
             </SplitPane>
         );
+
+        return (pane)
     }
 }
 

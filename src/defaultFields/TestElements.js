@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styles from '../styles.css'
-import Const, {jsonSchema, uiSchema, ifrsSchema, rasSchema} from './Const'
+import Const, {jsonSchema, uiSchema, ifrsSchema, rasSchema, standards} from './Const'
 import Form from "react-jsonschema-form";
 import SplitPane from 'react-split-pane';
 
