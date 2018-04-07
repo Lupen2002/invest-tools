@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import App from "./App";
 import SplitPane from 'react-split-pane';
-import Const, {newSchema} from './defaultFields/Const'
+import {standards, newSchema} from './defaultFields/Const'
+import {createIfrsProperties, getIfrsSchema, newIfrsSchema, ifrsPropsEmpty} from './defaultFields/storageForIFRS'
+import {createRasProperties, getRasSchema, newRasSchema, rasPropsEmpty} from './defaultFields/storageForRAS'
 import Form from "react-jsonschema-form";
 
 class SettingsForStandards extends Component {
@@ -9,7 +11,8 @@ class SettingsForStandards extends Component {
         super(props);
         this.state = {
             mainForm: false,
-            dataForm: [],
+            dataForm: undefined,
+            selectStandard: standards[0],
         };
     }
 
@@ -17,31 +20,45 @@ class SettingsForStandards extends Component {
         this.setState({...this.state, mainForm: true})
     }
 
-    //Тут я думал заполнять массив названиями новых properties
     onSubmit(e) {
-        let value = e.formData["newValue"];
-        let dataForm = this.state.dataForm;
-        dataForm.push(value);
+        let dataForm = e.formData["newValue"];
         this.setState({...this.state, dataForm});
-        console.log(e.formData)
     }
 
-    secondForm = <span></span>;
+    secondForm = <span/>;
+    newSchema = newSchema;
+
+    onChange(e) {
+        let selectStandard = standards[e.target.selectedIndex];
+        this.setState({...this.state, selectStandard});
+    }
+
+    chooseStandard(standard) {
+        if (standard === standards[0]) {
+            this.secondForm = <Form schema={getIfrsSchema}/>;
+            this.newSchema = newIfrsSchema
+        }
+        else if (standard === standards[1]) {
+            this.secondForm = <Form schema={getRasSchema}/>;
+            this.newSchema = newRasSchema
+        }
+    }
 
     render() {
-        //А тут превращать в объект и схему, а после сетить в Form
         let form = <span/>;
-        if (this.state.mainForm) form = <App/>;
-        if (this.state.dataForm.length > 0) {
-            let formData = this.state.dataForm;
-            let o = new Object();
-            let obj = formData.map((el) => {
-                o["newValue"] = el
-            });
-            console.log(o)
-            let newFrom = <Form schema={newSchema}/>
-            this.secondForm = newFrom //после этой строки перестает работать
+        this.chooseStandard(this.state.selectStandard);
+        if (this.state.dataForm !== undefined) {
+            if (this.state.selectStandard === standards[0]) {
+                createIfrsProperties(this.state.dataForm);
+                this.secondForm = <Form schema={getIfrsSchema}/>;
+            }
+            else if (this.state.selectStandard === standards[1]) {
+                createRasProperties(this.state.dataForm);
+                this.secondForm = <Form schema={getRasSchema}/>;
+            }
+            this.state.dataForm = undefined
         }
+        if (this.state.mainForm) form = <App/>;
         else form = (
             <SplitPane split="horizontal" minSize={40}>
                 <div className="text">INVEST-TOOLS
@@ -51,13 +68,15 @@ class SettingsForStandards extends Component {
                 </div>
                 <SplitPane split="vertical" minSize={350}>
                     <div>
-                        <select>
+                        <select onChange={this.onChange.bind(this)}>
                             {this.props.standards.map(s => <option>{s}</option>)}
                         </select>
                     </div>
                     <div>
                         {this.secondForm}
-                        <Form schema={newSchema} onSubmit={this.onSubmit.bind(this)}/>
+                        <Form className="defaultForm"
+                              schema={this.newSchema}
+                              onSubmit={this.onSubmit.bind(this)}/>
                     </div>
                 </SplitPane>
             </SplitPane>

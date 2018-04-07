@@ -106,7 +106,7 @@ export let rasSchema = {
         },
     }
 };
-/**RAS SCHEMAS*/
+/**NEW SCHEMAS*/
 export let newSchema = {
     "type": "object",
     "required": [
