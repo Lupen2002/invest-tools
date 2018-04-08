@@ -30,4 +30,4 @@ export let newRasSchema = {
     }
 };
 
-export let rasPropsEmpty = properties.left > 0;
+export let rasPropsEmpty = properties.length > 0;

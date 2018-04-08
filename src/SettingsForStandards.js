@@ -26,27 +26,31 @@ class SettingsForStandards extends Component {
     }
 
     secondForm = <span/>;
-    newSchema = newSchema;
+    newSchema = newIfrsSchema;
 
     onChange(e) {
         let selectStandard = standards[e.target.selectedIndex];
+        this.chooseStandard(selectStandard);
         this.setState({...this.state, selectStandard});
     }
 
     chooseStandard(standard) {
         if (standard === standards[0]) {
-            this.secondForm = <Form schema={getIfrsSchema}/>;
-            this.newSchema = newIfrsSchema
+            if (ifrsPropsEmpty) {
+                this.secondForm = <Form schema={getIfrsSchema}/>;
+                this.newSchema = newIfrsSchema
+            }
         }
         else if (standard === standards[1]) {
-            this.secondForm = <Form schema={getRasSchema}/>;
-            this.newSchema = newRasSchema
+            if (rasPropsEmpty) {
+                this.secondForm = <Form schema={getRasSchema}/>;
+                this.newSchema = newRasSchema
+            }
         }
     }
 
     render() {
         let form = <span/>;
-        this.chooseStandard(this.state.selectStandard);
         if (this.state.dataForm !== undefined) {
             if (this.state.selectStandard === standards[0]) {
                 createIfrsProperties(this.state.dataForm);

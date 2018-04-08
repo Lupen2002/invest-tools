@@ -29,4 +29,4 @@ export let newIfrsSchema = {
     }
 };
 
-export let ifrsPropsEmpty = properties.left > 0;
+export let ifrsPropsEmpty = properties.length > 0;
