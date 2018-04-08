@@ -1,3 +1,5 @@
+import {rasSchema} from "./storageForRAS";
+
 let properties = {};
 let id = 0;
 
@@ -11,10 +13,20 @@ export function createIfrsProperties(name) {
     id += 1;
 }
 
-export let getIfrsSchema = {
+let ifrsSchema = {
     "type": "object",
     properties
 };
+
+function _isEmpty(obj) {
+    return (Object.getOwnPropertyNames(obj).length >= 1);
+}
+
+export function getIfrsSchema() {
+    if (_isEmpty(properties)) {
+        return ifrsSchema
+    }
+}
 
 export let newIfrsSchema = {
     "type": "object",

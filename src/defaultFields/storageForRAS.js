@@ -1,4 +1,3 @@
-
 let properties = {};
 let id = 0;
 
@@ -12,10 +11,20 @@ export function createRasProperties(name) {
     id += 1;
 }
 
-export let getRasSchema = {
+let rasSchema = {
     "type": "object",
     properties
 };
+
+function _isEmpty(obj) {
+    return (Object.getOwnPropertyNames(obj).length >= 1);
+}
+
+export function getRasSchema() {
+    if (_isEmpty(properties)) {
+        return rasSchema
+    }
+}
 
 export let newRasSchema = {
     "type": "object",

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import App from "./App";
 import SplitPane from 'react-split-pane';
-import {standards, newSchema} from './defaultFields/Const'
+import {standards} from './defaultFields/Const'
 import {createIfrsProperties, getIfrsSchema, newIfrsSchema, ifrsPropsEmpty} from './defaultFields/storageForIFRS'
 import {createRasProperties, getRasSchema, newRasSchema, rasPropsEmpty} from './defaultFields/storageForRAS'
 import Form from "react-jsonschema-form";
@@ -54,11 +54,13 @@ class SettingsForStandards extends Component {
         if (this.state.dataForm !== undefined) {
             if (this.state.selectStandard === standards[0]) {
                 createIfrsProperties(this.state.dataForm);
-                this.secondForm = <Form schema={getIfrsSchema}/>;
+                let schema = getIfrsSchema()
+                this.secondForm = <Form schema={schema}/>;
             }
             else if (this.state.selectStandard === standards[1]) {
                 createRasProperties(this.state.dataForm);
-                this.secondForm = <Form schema={getRasSchema}/>;
+                let schema = getRasSchema
+                this.secondForm = <Form schema={schema}/>;
             }
             this.state.dataForm = undefined
         }

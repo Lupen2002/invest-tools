@@ -1,6 +1,8 @@
 import React, {Component} from "react";
 import styles from '../styles.css'
-import Const, {jsonSchema, uiSchema, ifrsSchema, rasSchema, standards} from './Const'
+import {jsonSchema, uiSchema} from './Const'
+import {getIfrsSchema} from './storageForIFRS'
+import {getRasSchema} from './storageForRAS'
 import Form from "react-jsonschema-form";
 import SplitPane from 'react-split-pane';
 
@@ -26,24 +28,24 @@ class TestElements extends Component {
     }
 
     _setSchemaInForm(schema) {
-        return (<Form className="standardForm"
-                      schema={schema}
-                      onError={console.log("errors")}/>)
+        let form = <span/>
+        if (schema !== undefined) form = (<Form className="standardForm"
+                                                schema={schema}
+                                                onError={console.log("errors")}/>);
+        return (form)
     }
 
     _check(event) {
         let formData = event.formData;
         let standard = event.formData["standard"];
-        if (standard === "IFRS") this.setState({
+        let newSchema = undefined;
+        if (standard === "IFRS") newSchema = getIfrsSchema();
+        else if (standard === "RAS") newSchema = getRasSchema();
+        this.setState({
             ...this.state,
-            standardForm: this._setSchemaInForm(ifrsSchema),
+            standardForm: this._setSchemaInForm(newSchema),
             formData
         });
-        else if (standard === "RAS") this.setState({
-            ...this.state,
-            standardForm: this._setSchemaInForm(rasSchema), formData
-        });
-        else this.setState({...this.state, standardForm: <span/>, formData});
     }
 
     render() {
