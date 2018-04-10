@@ -5,6 +5,7 @@ import {getIfrsSchema} from './storageForIFRS'
 import {getRasSchema} from './storageForRAS'
 import Form from "react-jsonschema-form";
 import SplitPane from 'react-split-pane';
+import {bulderSchema} from "./Storage";
 
 class TestElements extends Component {
     constructor(props) {
@@ -38,9 +39,7 @@ class TestElements extends Component {
     _check(event) {
         let formData = event.formData;
         let standard = event.formData["standard"];
-        let newSchema = undefined;
-        if (standard === "IFRS") newSchema = getIfrsSchema();
-        else if (standard === "RAS") newSchema = getRasSchema();
+        let newSchema = bulderSchema(standard).getSchema();
         this.setState({
             ...this.state,
             standardForm: this._setSchemaInForm(newSchema),
