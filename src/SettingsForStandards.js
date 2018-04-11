@@ -24,7 +24,12 @@ class SettingsForStandards extends Component {
 
     onSubmit(e) {
         let dataForm = e.formData["newValue"];
+        let builder = builderSchema(this.state.selectStandard);
+        builder.createProperties(dataForm);
+        let schema = builder.getSchema();
+        this.secondForm = <Form schema={schema}/>;
         this.setState({...this.state, dataForm});
+        this.state.dataForm = undefined
     }
 
     onChange(e) {
@@ -36,19 +41,20 @@ class SettingsForStandards extends Component {
         let builder = builderSchema(standard);
         let schema = builder.getSchema();
         let newSchema = builder.newSchema();
-        this.secondForm = <Form schema={schema}/>;
-        this.newSchema = newSchema
+        if (schema !== undefined) this.secondForm = <Form schema={schema}/>;
+        if (newSchema !== undefined) this.newSchema = newSchema;
+        this.setState({...this.state, selectStandard: standard})
+    }
+
+    _show() {
+        let builder = builderSchema(this.state.selectStandard);
+        let schema = builder.getSchema();
+        if (schema !== undefined) return <Form schema={schema}/>;
     }
 
     render() {
         let form = <span/>;
-        if (this.state.dataForm !== undefined) {
-            let builder = builderSchema(this.state.selectStandard);
-            builder.createProperties(this.state.dataForm);
-            let schema = builder.getSchema();
-            this.secondForm = <Form schema={schema}/>;
-            this.state.dataForm = undefined
-        }
+        this.secondForm = this._show();
         if (this.state.mainForm) form = <App/>;
         else form = (
             <SplitPane split="horizontal" minSize={40}>
