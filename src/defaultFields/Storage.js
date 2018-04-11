@@ -1,6 +1,5 @@
 import React, {Component} from "react";
 import {_isEmpty, createNewSchema} from "./Const";
-import {newIfrsSchema} from "./storageForIFRS";
 
 class Storage {
     getSchema() {
@@ -79,7 +78,7 @@ class UndefinedStorage extends Storage {
     }
 
     newSchema() {
-        return newIfrsSchema
+        return createNewSchema("New IFRS value")
     }
 }
 

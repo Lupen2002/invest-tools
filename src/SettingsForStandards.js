@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import App from "./App";
 import SplitPane from 'react-split-pane';
-import {standards} from './defaultFields/Const'
-import {newIfrsSchema} from './defaultFields/storageForIFRS'
+import {standards, createNewSchema} from './defaultFields/Const'
 import Form from "react-jsonschema-form";
 import {builderSchema} from "./defaultFields/Storage";
 
@@ -15,7 +14,7 @@ class SettingsForStandards extends Component {
             selectStandard: standards[0],
         };
         this.secondForm = <span/>;
-        this.newSchema = newIfrsSchema;
+        this.newSchema = createNewSchema("New IFRS value");
     }
 
     _backToMainWindow() {

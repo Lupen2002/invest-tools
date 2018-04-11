@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import SplitPane from 'react-split-pane';
 import AddNewElement from './AddNewElement';
-import TestElements from './defaultFields/TestElements';
+import TestElements from './defaultFields/CreateNewElement';
 import styles from './styles.css'
 import SettingsForStandards from "./SettingsForStandards";
 import {standards} from './defaultFields/Const'
