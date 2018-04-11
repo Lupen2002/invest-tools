@@ -62,60 +62,24 @@ export let uiSchema = {
         "ui:widget": "alt-datetime"
     }
 };
-/**IFRS SCHEMAS*/
-export let ifrsSchema = {
-    "title": "Options by IFRS",
-    "type": "object",
-    "required": [
-        "IFRSParam1"
-    ],
-    "properties": {
-        "IFRSParam1": {
-            "type": "string",
-            "title": "IFRSParam1"
-        },
-        "IFRSParam2": {
-            "type": "string",
-            "title": "IFRSParam2"
-        },
-        "IFRSParam3": {
-            "type": "string",
-            "title": "IFRSParam3"
-        },
-    }
-};
-/**RAS SCHEMAS*/
-export let rasSchema = {
-    "title": "Options by RAS",
-    "type": "object",
-    "required": [
-        "RASParam1"
-    ],
-    "properties": {
-        "RASParam1": {
-            "type": "string",
-            "title": "RASParam1"
-        },
-        "RASParam2": {
-            "type": "string",
-            "title": "RASParam2"
-        },
-        "RASParam3": {
-            "type": "string",
-            "title": "RASParam3"
-        },
-    }
-};
+
 /**NEW SCHEMAS*/
-export let newSchema = {
-    "type": "object",
-    "required": [
-        "newValue"
-    ],
-    "properties": {
-        "newValue": {
-            "type": "string",
-            "title": "New value"
-        },
-    }
-};
+export function createNewSchema(title) {
+    return {
+        "type": "object",
+        "required": [
+            "newValue"
+        ],
+        "properties": {
+            "newValue": {
+                "type": "string",
+                "title": title
+            },
+        }
+    };
+}
+
+// TODO I don't know how do better
+export function _isEmpty(obj) {
+    return (Object.getOwnPropertyNames(obj).length >= 1);
+}

@@ -2,9 +2,9 @@ import React, {Component} from 'react';
 import App from "./App";
 import SplitPane from 'react-split-pane';
 import {standards} from './defaultFields/Const'
-import {createIfrsProperties, getIfrsSchema, newIfrsSchema, ifrsPropsEmpty} from './defaultFields/storageForIFRS'
-import {createRasProperties, getRasSchema, newRasSchema, rasPropsEmpty} from './defaultFields/storageForRAS'
+import {newIfrsSchema} from './defaultFields/storageForIFRS'
 import Form from "react-jsonschema-form";
+import {builderSchema} from "./defaultFields/Storage";
 
 class SettingsForStandards extends Component {
     constructor(props) {
@@ -14,9 +14,11 @@ class SettingsForStandards extends Component {
             dataForm: undefined,
             selectStandard: standards[0],
         };
+        this.secondForm = <span/>;
+        this.newSchema = newIfrsSchema;
     }
 
-    back() {
+    _backToMainWindow() {
         this.setState({...this.state, mainForm: true})
     }
 
@@ -25,43 +27,26 @@ class SettingsForStandards extends Component {
         this.setState({...this.state, dataForm});
     }
 
-    secondForm = <span/>;
-    newSchema = newIfrsSchema;
-
     onChange(e) {
         let selectStandard = standards[e.target.selectedIndex];
-        this.chooseStandard(selectStandard);
-        this.setState({...this.state, selectStandard});
+        this._chooseStandard(selectStandard);
     }
 
-    chooseStandard(standard) {
-        if (standard === standards[0]) {
-            if (ifrsPropsEmpty) {
-                this.secondForm = <Form schema={getIfrsSchema}/>;
-                this.newSchema = newIfrsSchema
-            }
-        }
-        else if (standard === standards[1]) {
-            if (rasPropsEmpty) {
-                this.secondForm = <Form schema={getRasSchema}/>;
-                this.newSchema = newRasSchema
-            }
-        }
+    _chooseStandard(standard) {
+        let builder = builderSchema(standard);
+        let schema = builder.getSchema();
+        let newSchema = builder.newSchema();
+        this.secondForm = <Form schema={schema}/>;
+        this.newSchema = newSchema
     }
 
     render() {
         let form = <span/>;
         if (this.state.dataForm !== undefined) {
-            if (this.state.selectStandard === standards[0]) {
-                createIfrsProperties(this.state.dataForm);
-                let schema = getIfrsSchema()
-                this.secondForm = <Form schema={schema}/>;
-            }
-            else if (this.state.selectStandard === standards[1]) {
-                createRasProperties(this.state.dataForm);
-                let schema = getRasSchema
-                this.secondForm = <Form schema={schema}/>;
-            }
+            let builder = builderSchema(this.state.selectStandard);
+            builder.createProperties(this.state.dataForm);
+            let schema = builder.getSchema();
+            this.secondForm = <Form schema={schema}/>;
             this.state.dataForm = undefined
         }
         if (this.state.mainForm) form = <App/>;
@@ -69,7 +54,7 @@ class SettingsForStandards extends Component {
             <SplitPane split="horizontal" minSize={40}>
                 <div className="text">INVEST-TOOLS
                     <button className="btn_settingStandards"
-                            onClick={this.back.bind(this)}>Main form
+                            onClick={this._backToMainWindow.bind(this)}>Main form
                     </button>
                 </div>
                 <SplitPane split="vertical" minSize={350}>

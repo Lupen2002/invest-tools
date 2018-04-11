@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import styles from './styles.css'
+import {_isEmpty} from "./defaultFields/Const";
 
 class AddNewElement extends Component {
     constructor(props) {
@@ -15,14 +16,9 @@ class AddNewElement extends Component {
         this.props.setFromData(elem, selectBox.selectedIndex)
     };
 
-    // TODO I don't know how do better
-    static _isEmpty(obj) {
-        return (Object.getOwnPropertyNames(obj).length > 1);
-    }
-
     render() {
         let formData = this.props.formData;
-        if (AddNewElement._isEmpty(formData)) {
+        if (_isEmpty(formData)) {
             let id = this.props.id;
             if (id !== undefined) this.state.formData[id] = formData;
             else this.state.formData[this.state.formData.length] = formData;
