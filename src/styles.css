@@ -1,0 +1,51 @@
+.my_select {
+    height: 100%;
+    width: 100%;
+    position: absolute;
+}
+
+.add_new {
+    top: 0px;
+    width: 100%;
+}
+
+.labels {
+    left: 3%;
+    position: relative;
+}
+
+.text {
+    color: #d54d7b;
+    font-family: "Great Vibes", cursive;
+    font-weight: normal;
+    margin-bottom: 0px;
+    text-align: center;
+    text-shadow: 0 1px 1px #fff;
+    font-size: 150%;
+}
+
+.save_changes {
+    left: 20%;
+    position: relative;
+    top: 80px;
+}
+
+.btn.btn-info {
+    /* color: red; */
+    /* display: none; */
+}
+
+.defaultForm {
+    position: absolute;
+    left: 3%;
+}
+
+.standardForm {
+    position: absolute;
+}
+
+.btn_settingStandards {
+    position: fixed;
+    right: 0px;
+    top: 0px;
+}
